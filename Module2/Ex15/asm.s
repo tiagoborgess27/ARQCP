@@ -1,0 +1,108 @@
+.equ CONST, 20
+
+.section .text
+    .global sum2
+    .global sum3
+    .global three_halves
+    .global parallel
+    .global time_sec
+    .global is_multiple
+    .global big_sum
+    .global is_greater
+    .global in_order
+    .global get_area
+    .global get_area2
+    .global compute
+
+sum2:
+    add a0, a0, a0      # a0 = 2*x
+    add a0, a0, a1      # a0 = 2*x + y
+    ret
+
+sum3:
+    addi t0, a0, -CONST # t0 = x - CONST
+    add  t0, t0, t0     # t0 = 2*(x - CONST)
+    li   t1, CONST      # t1 = CONST    
+    sub  t1, t1, a1     # t1 = CONST - y
+    add  a0, t0, t1     # a0 = 2*(x - CONST) + (CONST - y)
+    ret
+
+three_halves:
+    li  t0, 3
+    mul a0, a0, t0      # a0 = 3*x
+    li  t1, 2
+    div a0, a0, t1      # a0 = (3*x) / 2
+    ret
+
+parallel:
+    mul t0, a0, a1      # t0 = x * y
+    add t1, a0, a1      # t1 = x + y
+    div a0, t0, t1      # a0 = (x * y) / (x + y)
+    ret
+
+time_sec:
+    li t0, 3600
+    mul t0, a0, t0
+    li t1, 60
+    mul t1, a1, t1
+    add a0, a2, t1
+    add a0, a0, t0
+    ret
+
+my_remainder:
+    add t0, a0, a1
+    rem a0, t0, a2
+    ret
+
+is_multiple:
+    rem t0, a0, a1
+    seqz a0, t0         # a0 = (t0 == 0) ? 1 : 0
+    ret
+
+six_packs:
+    addi t0, a0, 5      # t0 = num + 5
+    li   t1, 6
+    div  a0, t0, t1     # a0 = (num + 5) / 6
+    ret
+
+# x = (a1:a0)   a0 = x_low,  a1 = x_high
+# y = (a3:a2)   a2 = y_low,  a3 = y_high
+
+big_sum:
+    add  t0, a0, a2     # t0 = x_low + y_low
+    sltu t1, t0, a0     # t1 = 1 se houve carry (resultado < operando)
+    add  t2, a1, a3     # t2 = x_high + y_high
+    add  a1, t2, t1     # a1 = parte alta + carry
+    mv   a0, t0         # a0 = parte baixa
+    ret
+
+is_greater:
+    slt a0, a1, a0      # a0 = (y < x) = (x > y)
+    ret
+
+in_order:
+    slt t0, a1, a0
+    slt t1, a2, a1
+    and a0, t0, t1
+    ret
+
+get_area:
+    add t0, a0, a1      # t0 = len1 + len2
+    mul t0, t0, a2      # t0 = (len1 + len2) * height
+    li  t1, 2
+    div a0, t0, t1      # a0 = ((len1 + len2) * height) / 2
+    ret
+
+get_area2:
+    li t0, 2
+    add t1, a0, a1
+    div t1, t1, t0
+    mul a0, t1, a2
+    ret
+
+compute:
+    mul t0, a0, a1
+    mul t1, a2, a0
+    sub t0, t0, t1
+    div a0, t0, a3
+    ret
