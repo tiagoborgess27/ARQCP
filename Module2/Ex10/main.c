@@ -17,6 +17,10 @@ int main(void) {
     printf("Hours, minutes, seconds: ");
     scanf("%d %d %d", &h, &m, &s);
     printf("time_sec = %d\n", time_sec(h, m, s));
-    printf("my_remainder = %d\n", my_remainder(op1, op2, h));
+    printf("my_remainder = %d\n", my_remainder(5, 4, 4));   // 1
+    printf("is_multiple(%d, %d) = %d\n", op1, op2, is_multiple(op1, op2));
+    printf("six_packs(%d) = %d\n", op1, six_packs(op1));
+    long long a = 4000000000LL, b = 1000000000LL;
+    printf("big_sum = %lld\n", big_sum(a, b));   // 5000000000  
     return 0;
 }

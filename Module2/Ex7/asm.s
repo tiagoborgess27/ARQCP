@@ -41,3 +41,8 @@ time_sec:
     add a0, a2, t1
     add a0, a0, t0
     ret
+
+my_remainder:
+    add t0, a0, a1
+    rem a0, t0, a2
+    ret

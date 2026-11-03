@@ -6,4 +6,5 @@ int three_halves(int x);
 int parallel(int x, int y);
 int time_sec(int hour, int min, int sec);
 int my_remainder(int x, int y, int z);
+int is_multiple(int x, int y); 
 #endif

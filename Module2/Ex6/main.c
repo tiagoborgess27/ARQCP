@@ -17,6 +17,5 @@ int main(void) {
     printf("Hours, minutes, seconds: ");
     scanf("%d %d %d", &h, &m, &s);
     printf("time_sec = %d\n", time_sec(h, m, s));
-    printf("my_remainder = %d\n", my_remainder(op1, op2, h));
     return 0;
 }

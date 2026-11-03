@@ -6,6 +6,8 @@
     .global three_halves
     .global parallel
     .global time_sec
+    .global is_multiple
+    .global big_sum
     
 sum2:
     add a0, a0, a0      # a0 = 2*x
@@ -45,4 +47,26 @@ time_sec:
 my_remainder:
     add t0, a0, a1
     rem a0, t0, a2
+    ret
+
+is_multiple:
+    rem t0, a0, a1
+    seqz a0, t0         # a0 = (t0 == 0) ? 1 : 0
+    ret
+
+six_packs:
+    addi t0, a0, 5      # t0 = num + 5
+    li   t1, 6
+    div  a0, t0, t1     # a0 = (num + 5) / 6
+    ret
+
+# x = (a1:a0)   a0 = x_low,  a1 = x_high
+# y = (a3:a2)   a2 = y_low,  a3 = y_high
+
+big_sum:
+    add  t0, a0, a2     # t0 = x_low + y_low
+    sltu t1, t0, a0     # t1 = 1 se houve carry (resultado < operando)
+    add  t2, a1, a3     # t2 = x_high + y_high
+    add  a1, t2, t1     # a1 = parte alta + carry
+    mv   a0, t0         # a0 = parte baixa
     ret
