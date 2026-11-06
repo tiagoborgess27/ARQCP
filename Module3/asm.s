@@ -1,6 +1,7 @@
 .section .text
     .global five_count
     .global str_copy_roman
+    .global str_copy_roman2
 
 five_count:
     li   t0, 0              # t0 = contador
@@ -31,4 +32,26 @@ roman_store:
     addi a1, a1, 1               # ptr2++
     j    roman_loop
 roman_end:
+    ret
+
+str_copy_roman2:
+    li   t2, 'u'                 # t2 = 'u'
+    li   t3, 'v'                 # t3 = 'v'
+    li   t4, 'U'                 # t4 = 'U'
+    li   t5, 'V'                 # t5 = 'V'
+roman2_loop:
+    lbu  t1, 0(a0)               # t1 = *ptr1
+    bne  t1, t2, roman2_check_upper   # se nao e 'u', testa 'U'
+    mv   t1, t3                  # 'u' -> 'v'
+    j    roman2_store
+roman2_check_upper:
+    bne  t1, t4, roman2_store    # se nao e 'U', mantem
+    mv   t1, t5                  # 'U' -> 'V'
+roman2_store:
+    sb   t1, 0(a1)               # *ptr2 = t1 (copia tambem o '\0')
+    beqz t1, roman2_end          # se era '\0', termina
+    addi a0, a0, 1               # ptr1++
+    addi a1, a1, 1               # ptr2++
+    j    roman2_loop
+roman2_end:
     ret
