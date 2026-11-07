@@ -58,13 +58,14 @@ roman2_end:
     ret
 
 vec_add_three:
-    li t3, a1     # t3 = num
-    li t1, 0      # t1 contador
+    mv t3, a1                 # t3 = num
+    li t1, 0                  # t1 contador
 vec_add_three_loop:
-    lbu t0, 0(a0) #t0 = *ptr
-    addi t0, 3
-    sb t0, 0(a0)  #*ptr = t0
-    addi t1, t1, 1
+    lh t0, 0(a0)              #t0 = *ptr
+    addi t0, t0, 3
+    sh t0, 0(a0)              #*ptr = t0
+    addi t1, t1, 1            # contador++                          
+    addi a0, a0, 2            # *ptr++ (2 por ser short)          
     beq t1, t3, vec_add_three_end
     j vec_add_three_loop 
 vec_add_three_end:
