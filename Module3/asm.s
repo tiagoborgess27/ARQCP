@@ -2,6 +2,7 @@
     .global five_count
     .global str_copy_roman
     .global str_copy_roman2
+    .global vec_add_three
 
 five_count:
     li   t0, 0              # t0 = contador
@@ -54,4 +55,17 @@ roman2_store:
     addi a1, a1, 1               # ptr2++
     j    roman2_loop
 roman2_end:
+    ret
+
+vec_add_three:
+    li t3, a1     # t3 = num
+    li t1, 0      # t1 contador
+vec_add_three_loop:
+    lbu t0, 0(a0) #t0 = *ptr
+    addi t0, 3
+    sb t0, 0(a0)  #*ptr = t0
+    addi t1, t1, 1
+    beq t1, t3, vec_add_three_end
+    j vec_add_three_loop 
+vec_add_three_end:
     ret

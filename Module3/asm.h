@@ -3,4 +3,5 @@
 int five_count(char* ptr);
 void str_copy_roman(char* ptr1, char* ptr2);
 void str_copy_roman(char* ptr1, char* ptr2);
+void vec_add_three(short* ptr, int num);
 #endif
